@@ -1,2 +1,113 @@
+<head>
+   <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<div class="container">
+<!-- Expresiones de variables -->
 <h4 class="price">Current price: <span th:text="${product.price}"></span>€</h4>
 <p class="vote">The <strong><span th:text="${product.satisfactionPercentage}"></span>%</strong> of buyers have enjoyed this product. <strong>(<span th:text="${product.numberVotes}"></span> votes)</strong></p>
+
+<div class="row bg-success">
+  <div class="col-md-12">
+    <h2>List of products (elements)</h2>
+     <!-- Expresiones de utilidad -->
+     <h3>Names</h4>
+     <ul>
+        <li th:text="${list[0].name}"></li>
+        <li th:text="${list[1].name}"></li>
+     </ul>
+     <!-- Expresiones de seleccion -->
+     <h3>Name of object with *</h4>
+     <div class="col-md-12" th:object="${product}">
+        <ul>
+          <li th:text="*{name}"></li>
+         </ul>
+     </div>
+     <!-- Expresiones de utilidad -->
+     <h3>Carrito</h4>
+     <ul>
+        <li th:text="${list.size()}"></li>
+     </ul>
+     <!-- Expresiones de utilidad-->
+     <h3>Formats</h3>
+     <ul>
+        <!-- https://frontbackend.com/thymeleaf/thymeleaf-utility-methods-for-numbers -->
+        <li th:text="(${#numbers.formatCurrency(product.price)})"></li>
+        <!-- 0.01 * number, 1, number of decimals-->
+        <li th:text="(${#numbers.formatPercent(0.01 * product.satisfactionPercentage,1,2)})"></li>
+     </ul>
+     <!-- Expresiones de utilidad-->
+     <h3>Strings</h3>
+     <ul>
+        <!-- https://programmerclick.com/article/40901440939/ -->
+        <!-- https://programmerclick.com/article/1007671514/ -->
+        <li th:if = "${product.name} eq 'Euro cup ball' "> Euro cup ball is OKEY</li>
+        <li th:text = "'The ball was: ' + ${product.name}"></li>
+        <li th:if = "${#strings.containsIgnoreCase(product.name, 'b')}">This word contains 'b'</li>
+        <li th:if = "${product.name} == null">The name of this product isn´t empty (it shouldn´t be printed)</li>  
+      </ul>
+      
+      <!-- Expresiones de utilidad -->
+      <h3>Conditional</h3>
+      <!--1-->
+      <div th:switch="${product.name}"> 
+         <p th:case="'Euro cup ball'">Okey!!</p>
+         <p th:case="#{product.description}">Wrong!!</p>
+         <p th:case="*">Default case</p> 
+      </div>
+      <!--2 'Comparation (== 'Euro cup ball').. isn´t necessary'-->
+     <div th:if="${product.name == 'Euro cup ball'} and ${product.name != 'World cup ball'}">
+        <p>If Okey!!</p>
+     </div>
+      <!-- ELSE -->
+     <div th:unless="${product.name == 'Euro cup ball'} and ${product.name != 'World cup ball'}">
+        <div th:text=" 'Name: ' + ${product.name}"></div>
+     </div>
+     <!--3-->
+     <div th:with="localVariable = ${product.name}">
+      <div th:if="${localVariable}">
+        <p>If and localVariable Okey!!</p>
+      </div>
+      <!-- ELSE -->
+     <div th:unless="${localVariable}">
+        <div th:text=" 'Name: ' + ${product.name}"></div>
+     </div>
+    </div>
+    <!--3-->
+    <!--In simpler case (when html tags is the same) -->
+    <p th:text="${product.name} ? 'Euro cup ball' : 'There is a problem with server'"></p>
+    <!-- <p th:text="${product.name} ?:_"></p> if it was empty (null) -->
+    
+    <!-- Expresiones de utilidad -->
+    <h3>Maths</h3>
+    <p th:text=" 'The result is: ' + ${4 % 2}"><p/>
+    <p th:text=" |The result is: ${4 % 2}|"><p/>
+    
+    <!-- Bucles ()-->
+    <h3>Loops in collections</h3>
+    <tr th:each="product : ${list}">
+       <td th:text="${product.name} + ' ,' "></td>
+       <td th:text="(${#numbers.formatCurrency(product.price)})"></td>
+       <br>
+   </tr>
+   <h3>Loops in collections (map)</h3>
+    <tr th:each="entryCarrito : ${mapCarrito}">
+       <td th:text="${entryCarrito.key.name} + ' ,' "></td>
+       <td th:text="(${#numbers.formatCurrency(entryCarrito.key.price)})"></td>
+       <td th:text="' -----> Value of element: ' + ${entryCarrito.value}"></td>
+       <br>
+   </tr>
+   
+    </tr>
+   <h3>Loops in collections (status)</h3>
+    <tr th:each="product, iterStatus : ${list}">
+       <td th:text="'Index: ' + (${iterStatus.index} + 1) + ' ,' "></td>
+       <td th:text="'Count: ' + ${iterStatus.count} + ' ,' "></td>
+       <td th:text="${product.name} + ' ,' "></td>
+       <td th:text="(${#numbers.formatCurrency(product.price)})"></td>
+       <br>
+   </tr>
+
+</div>
+</div>
+

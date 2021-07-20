@@ -10,20 +10,20 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-@Configuration
+@Configuration 
 public class ThymeleafConfig implements ApplicationContextAware {
-
+  
 	private ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 	   this.applicationContext = applicationContext;
 	}
-	
+		
 	/**
 	* Configuramos el componente que resolverá las plantillas 
 	* @return
 	*/
-	@Bean
+    @Bean
 	public SpringResourceTemplateResolver templateResolver() {
 	  SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 	  templateResolver.setApplicationContext(this.applicationContext);
@@ -46,18 +46,16 @@ public class ThymeleafConfig implements ApplicationContextAware {
      return engine;
 	} 
 	
-
 	/**
 	* Configuramos el view resolver, que resuelve las vistas en Spring MVC
 	* @return
 	*/
-	@Bean
+    @Bean
 	public ViewResolver viewResolver(){
 	  ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 	  resolver.setTemplateEngine(templateEngine());
 	  resolver.setCharacterEncoding("UTF-8");
      return resolver;
 	} 
-		
 }
 
