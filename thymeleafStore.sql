@@ -1,1 +1,1 @@
-INSERT INTO product(id,name,price) VALUES(1,"Ball",9.20);
+INSERT INTO product(id,name,price,image) VALUES(1,"Ball",9.20,"https://img.icons8.com/ios-glyphs/30/000000/baseball-ball.png");

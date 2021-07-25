@@ -21,7 +21,10 @@
                     </thead>
                     <tbody>
                         <tr th:each="product : ${products}">
-                            <td th:text="${product.image}"></td>
+                            <td>
+                              <img th:src="${product.image} ?: 'https://img.icons8.com/ios-glyphs/30/000000/baseball-ball.png'"
+                                class="img-responsive icono-categoria" alt="image" />
+                            </td>
                             <td th:text="${product.name}"></td>
                             <td th:text="${#numbers.formatCurrency(product.price)}"></td>
                             <td class="Options"><a href="#"                                

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sf="http://www.w3.org/1999/xhtml" lang="es">
   <head>
     <meta charset="utf-8">
     <title>Store</title>
@@ -8,8 +8,22 @@
   <body>
     <div class="container">
        <h1>WELCOME TO MY STORE</h1>
-       <script src="/webjars/jquery/jquery.min.js"></script>
-       <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    </div>  
+       <h2>Create a new ball <a th:href="@{table/list-product}" class="btn btn-primary">See stock</a></h2>
+    
+    <form th:action="@{/createBall}" th:object="${product}" method="POST">
+    <div class="form-group">
+     <label>Name</label>
+     <input type="text" id="name" name="name" class="form-control" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+     <label>Price</label>
+     <input type="number" id="price" name="price" class="form-control" placeholder="Enter price">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  
+  </div>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -20,8 +20,14 @@ public class Product {
 	private Float price;
 	
     public Product() {}
+    
+    public Product(String name, Float price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
 
-	public Long getId() {
+   public Long getId() {
 		return id;
 	}
 
@@ -51,6 +57,11 @@ public class Product {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", image=" + image + ", name=" + name + ", price=" + price + "]";
 	}
     
     
